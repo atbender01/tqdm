@@ -25,13 +25,13 @@ __all__ = ['SlackIO', 'tqdm_slack', 'tsrange', 'tqdm', 'trange']
 
 class SlackIO(MonoWorker):
     """Non-blocking file-like IO using a Slack app."""
-    def __init__(self, token, channel):
+    def __init__(self, token, channel, ):
         """Creates a new message in the given `channel`."""
         super().__init__()
         self.client = WebClient(token=token)
         self.text = self.__class__.__name__
         try:
-            self.message = self.client.chat_postMessage(channel=channel, text=self.text)
+            self.message = self.client.chat_postMessage(channel=channel, text=self.text, attachments=[{"color": "#ff0000"}])
         except Exception as e:
             tqdm_auto.write(str(e))
             self.message = None
